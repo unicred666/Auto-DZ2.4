@@ -15,11 +15,14 @@ import static java.time.Duration.ofSeconds;
 
 public class NegativeTest {
 
-    LocalDate today = LocalDate.now();
-    LocalDate newDate = today.plusDays(5);
-    LocalDate invalidDate = today.plusDays(-5);
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+//    LocalDate today = LocalDate.now();
+//    LocalDate newDate = today.plusDays(5);
+//    LocalDate invalidDate = today.plusDays(-5);
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
+    private String generateDate(int addDays, String pattern) {
+        return LocalDate.now().plusDays(addDays).format(DateTimeFormatter.ofPattern(pattern));
+    }
 
     @BeforeEach
     public void setUp() {
@@ -32,8 +35,9 @@ public class NegativeTest {
     public void negativeTestСityFalse() {
 
         $("[data-test-id='city'] input").setValue("Баку");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").sendKeys(formatter.format(newDate));
+        String currentDate = generateDate(5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
@@ -48,8 +52,9 @@ public class NegativeTest {
     public void negativeTestСityTypo() {
 
         $("[data-test-id='city'] input").setValue("Уфо");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").sendKeys(formatter.format(newDate));
+        String currentDate = generateDate(5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
@@ -64,8 +69,9 @@ public class NegativeTest {
     public void negativeTestNoCity() {
 
         $("[data-test-id='city'] input").setValue("");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").sendKeys(formatter.format(newDate));
+        String currentDate = generateDate(5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
@@ -79,8 +85,9 @@ public class NegativeTest {
     public void negativeTestInvalidDate() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").sendKeys(formatter.format(invalidDate));
+        String currentDate = generateDate(-5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
@@ -94,7 +101,8 @@ public class NegativeTest {
     public void negativeTestInvalidDate2() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        String currentDate = generateDate(5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
         $("[data-test-id='date'] input").sendKeys("32.01.2023");
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("+79999999999");
@@ -108,8 +116,9 @@ public class NegativeTest {
     public void negativeTestTodayData() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").sendKeys(formatter.format(today));
+        String currentDate = generateDate(5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
@@ -122,7 +131,7 @@ public class NegativeTest {
     public void negativeTestNoDate() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
 
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("+79999999999");
@@ -136,8 +145,9 @@ public class NegativeTest {
     public void negativeTestInvalidName() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").sendKeys(formatter.format(newDate));
+        String currentDate = generateDate(5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Zukov Ivan");
         $("[data-test-id='phone'] input").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
@@ -150,8 +160,9 @@ public class NegativeTest {
     public void negativeTestInvalidNameЁ() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").sendKeys(formatter.format(newDate));
+        String currentDate = generateDate(5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Жукова Алёна");
         $("[data-test-id='phone'] input").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
@@ -164,8 +175,9 @@ public class NegativeTest {
     public void negativeTestInvalidTel() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").sendKeys(formatter.format(newDate));
+        String currentDate = generateDate(5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("+7999");
         $("[data-test-id='agreement']").click();
@@ -178,8 +190,9 @@ public class NegativeTest {
     public void negativeTestInvalidTelNotPlus() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").sendKeys(formatter.format(newDate));
+        String currentDate = generateDate(5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("89999999999");
         $("[data-test-id='agreement']").click();
@@ -192,8 +205,9 @@ public class NegativeTest {
     public void negativeTestEmptyCheckbox() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").sendKeys(formatter.format(newDate));
+        String currentDate = generateDate(5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("+79999999999");
 

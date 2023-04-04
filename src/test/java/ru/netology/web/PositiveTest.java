@@ -20,12 +20,14 @@ class PositiveTest {
 
     SelenideElement notification = $x("//div[@data-test-id='notification']");
 
-    LocalDate today = LocalDate.now();
-    LocalDate minData = today.plusDays(3);
-    LocalDate newDate = today.plusDays(5);
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+//    LocalDate today = LocalDate.now();
+//    LocalDate minData = today.plusDays(3);
+//    LocalDate newDate = today.plusDays(5);
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-
+    private String generateDate(int addDays, String pattern) {
+        return LocalDate.now().plusDays(addDays).format(DateTimeFormatter.ofPattern(pattern));
+    }
 
     @BeforeEach
     public void setUp() {
@@ -36,11 +38,12 @@ class PositiveTest {
 
 
     @Test
-    public void positiveTest(){
+    public void positiveTest() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").sendKeys(formatter.format(newDate));
+        String currentDate = generateDate(5,"dd.MM.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
@@ -48,15 +51,15 @@ class PositiveTest {
         notification.should(visible, ofSeconds(15));
         notification.$x(".//div[@class='notification__title']").should(text("Успешно"));
         notification.$x(".//div[@class='notification__content']").should(text("Встреча успешно забронирована на "
-                + newDate.format(formatter)));
+                + currentDate));
 
     }
 
     @Test
-    public void positiveTestDefaultDate(){
+    public void positiveTestDefaultDate() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-
+        String currentDate = generateDate(3,"dd.MM.yyyy");
         $("[data-test-id='name'] input").setValue("Жуков Иван");
         $("[data-test-id='phone'] input").setValue("+79999999999");
         $("[data-test-id='agreement']").click();
@@ -64,7 +67,7 @@ class PositiveTest {
         notification.should(visible, ofSeconds(15));
         notification.$x(".//div[@class='notification__title']").should(text("Успешно"));
         notification.$x(".//div[@class='notification__content']").should(text("Встреча успешно забронирована на "
-                + minData.format(formatter)));
+                + currentDate));
 
     }
 }
