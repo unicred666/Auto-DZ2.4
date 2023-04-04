@@ -116,7 +116,7 @@ public class NegativeTest {
     public void negativeTestTodayData() {
 
         $("[data-test-id='city'] input").setValue("Уфа");
-        String currentDate = generateDate(5,"dd.MM.yyyy");
+        String currentDate = generateDate(0,"dd.MM.yyyy");
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
         $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Жуков Иван");
